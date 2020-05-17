@@ -1,4 +1,5 @@
 import serial
+
 ser = None
 
 def verifica_porta(porta): # Verifica se a porta digitada está ativa no SO
@@ -25,13 +26,19 @@ def main():
     ser.open() # Inicia uma nova conexão na porta
     print('Conectado à porta ' + porta)
     aguarda_boot()
-    executa_comandos(b'cd datastor\n')
+    executa_comandos(b'cd datastor\n', 1)
+    list_dir = executa_comandos(b'dir\n')
+    for x in list_dir:
+        print(x)   
     ser.close()
 
-def executa_comandos(comando):
+def executa_comandos(comando, lines):
     retorno = []
     ser.write(comando)
-    ser.readline()
+    for x in range(lines):
+        res = ser.readline()
+
+    return retorno.append(res)
     
     
 
